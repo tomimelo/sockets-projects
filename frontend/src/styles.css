@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.jumbotron {
+    padding: 1em 0;
+}
+
+.content {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+footer {
+    width: 100%;
+}
+
+/************
+    Chart
+************/
+
+.chart-control {
+    margin: 0.4em 0;
+}
+
+.chart-control .form-control {
+    font-size: 0.8em;
+    height: 2em;
+    max-width: 4em;
+    text-align: center;
+}
+.chart-control button {
+    font-size: 0.6em;
+    min-height: 2em;
+    text-align: center;
+    padding: 0 1em;
+}

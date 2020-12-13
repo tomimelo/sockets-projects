@@ -26,7 +26,11 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getData();
-    this.listenChartChanges()
+    this.listenChartChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.chartChanges$.unsubscribe();    
   }
 
   getData() {
@@ -41,8 +45,10 @@ export class ChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.chartChanges$.unsubscribe();    
+  changeValue(month, value) {
+    this.chartService.changeValue(month, value).subscribe(data => {
+      this.lineChartData = data;
+    });
   }
 
 }

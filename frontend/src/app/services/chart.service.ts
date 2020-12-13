@@ -18,4 +18,11 @@ export class ChartService {
         map((resp: any) => resp.data)
       );
   }
+
+  changeValue(month, value) {
+    return this.http.post(`${base_url}/chart`, {month, value})
+      .pipe(
+        map((resp: any) => resp.data)
+      );
+  }
 }

@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ChartsModule } from 'ng2-charts';
 import { ChartComponent } from './components/chart/chart.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ChartComponent } from './components/chart/chart.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SharedModule,
     ChartsModule,
     HttpClientModule
   ],

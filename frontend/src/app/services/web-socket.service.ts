@@ -12,9 +12,23 @@ const base_url = environment.base_url
 export class WebSocketService {
 
   private socket: SocketIOClient.Socket;
+  public socketStatus: boolean = false;
 
   constructor() {
     this.socket = io.connect(base_url);
+    this.checkStatus();
+  }
+
+  checkStatus() {
+
+    this.socket.on('connect', () => {
+      this.socketStatus = true;
+    });
+
+    this.socket.on('disconnect', () => {
+      this.socketStatus = false;
+    });
+
   }
 
   emit(event: string, payload?: any, callback?: Function) {
