@@ -2,11 +2,19 @@ import {Router, Request, Response} from 'express';
 import { ChartData } from '../classes/chart';
 import { PollData } from '../classes/poll';
 import Server from '../classes/server';
+import { map } from '../sockets/sockets';
 
 const router = Router();
 
 const chart = new ChartData();
 const poll = new PollData();
+
+router.get("/map", (req: Request, res: Response) => {
+    res.json({
+        ok: true,
+        markers: map.getMarkers()
+    });
+});
 
 router.get("/chart", (req: Request, res: Response) => {
     res.json({

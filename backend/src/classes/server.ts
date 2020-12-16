@@ -32,7 +32,7 @@ export default class Server {
         console.log("Listening connections - sockets");
 
         this.io.on("connection", client => {
-            socket.disconnect(client, this.io);
+            socket.mapSockets(client, this.io);
         });
     }
 
