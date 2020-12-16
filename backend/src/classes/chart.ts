@@ -1,6 +1,6 @@
 export class ChartData {
     private months: string[] = ['january', 'february', 'march', 'april', 'may', 'june', 'july'];
-    private values: number[] = [0, 0, 0, 0, 0, 0, 0];
+    private values: number[] = [...new Array(7)].map(n => Math.round(Math.random()*100));
 
     constructor() {
 
@@ -18,6 +18,9 @@ export class ChartData {
         for(let i in this.months){
             if (this.months[i] === month) {
                 this.values[i] += value;
+                if(this.values[i] < 0) {
+                    this.values[i] = 0
+                }
             }
         }
 

@@ -1,0 +1,58 @@
+<div class="content">
+    <div class="jumbotron bg-danger text-white">
+        <div class="container">
+            <h3 class="display-3">
+                Real time poll
+            </h3>
+            <p class="lead">
+                Open this page in another window and play with the buttons to see changes in real time!
+            </p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-sm-12">
+                <div style="display: block">
+                    <canvas baseChart
+                      [datasets]="barChartData"
+                      [options]="barChartOptions"
+                      [labels]="barChartLabels"
+                      [colors]="barChartColors"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType">
+                    </canvas>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card" *ngIf="!pollService.vote else vote"> 
+                    <div class="card-body">
+                        <h3 class="text-center m-0">{{barChartData[0].label}}</h3>
+                        <form (ngSubmit)="sendPoll()" [formGroup]="form" class="d-flex flex-column align-items-center">
+                            <div class="my-3">
+                                <div class="form-check" *ngFor="let option of barChartLabels; let i = index">
+                                    <input class="form-check-input" type="radio" name="option" formControlName="option" [value]="i" attr.id="answer{{i}}">
+                                    <label class="form-check-label" attr.for="answer{{i}}">
+                                        {{option}}
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <ng-template #vote>
+                <div class="card animate__animated animate__bounceIn animate__fast">
+                    <div class="card-body">
+                        <h3 class="text-center mb-2">Thanks for voting!</h3>
+                        <div class="text-center">
+                            <span class="text-success"><i class="far fa-3x fa-check-circle"></i></span>
+                        </div>
+                        <p class="text-center my-2">Your answer: {{this.barChartLabels[pollService.vote.option]}}</p>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

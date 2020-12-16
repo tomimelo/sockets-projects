@@ -1,0 +1,15 @@
+button {
+    position: fixed;
+    top: 66px;
+    right: 10px;
+    padding: 5px;
+    z-index: 1;
+}
+
+#map {
+    z-index: 0;
+    width: 100vw;
+    height: calc(100vh - 96px);
+    position: absolute;
+    top: 56px;
+}
