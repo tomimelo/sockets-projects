@@ -2,12 +2,27 @@ import {Router, Request, Response} from 'express';
 import { ChartData } from '../classes/chart';
 import { PollData } from '../classes/poll';
 import Server from '../classes/server';
+import { User } from '../classes/user';
 import { map } from '../sockets/sockets';
 
 const router = Router();
 
 const chart = new ChartData();
 const poll = new PollData();
+
+const server = Server.instance;
+
+router.post("/login", (req: Request, res: Response) => {
+
+    const { name } = req.body;
+
+    const newUser = new User(name);
+
+    res.json({
+        ok: true,
+        user: newUser
+    });
+});
 
 router.get("/map", (req: Request, res: Response) => {
     res.json({
@@ -28,7 +43,6 @@ router.post("/chart", (req: Request, res: Response) => {
 
     chart.changeValue(month, Number(value));
 
-    const server = Server.instance;
     server.io.emit("chart-change", chart.getChartData());
 
     res.json({

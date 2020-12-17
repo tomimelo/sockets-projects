@@ -30,16 +30,22 @@ export class ChartComponent implements OnInit, OnDestroy {
   public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartType: ChartType = 'line';
   private chartChanges$: Subscription;
+  private socketStatus$: Subscription;
 
   constructor(private chartService: ChartService,
-              private wsService: WebSocketService) { }
+              public wsService: WebSocketService) { }
 
   ngOnInit(): void {
     this.getData();
-    this.listenChartChanges();
+    this.socketStatus$ = this.wsService.getSocketStatus().subscribe(status => {
+      if(status) {
+        this.listenChartChanges();
+      }
+    });
   }
 
   ngOnDestroy(): void {
+    this.socketStatus$.unsubscribe();    
     this.chartChanges$.unsubscribe();    
   }
 

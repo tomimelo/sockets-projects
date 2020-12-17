@@ -32,7 +32,9 @@ export default class Server {
         console.log("Listening connections - sockets");
 
         this.io.on("connection", client => {
+            console.log(client.id);
             socket.mapSockets(client, this.io);
+            socket.userSockets(client, this.io);
         });
     }
 

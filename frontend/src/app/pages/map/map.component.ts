@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { IPlace } from 'src/app/interfaces/place.interface';
 import { MapService } from 'src/app/services/map.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-map',
@@ -14,6 +15,7 @@ import { WebSocketService } from 'src/app/services/web-socket.service';
 export class MapComponent implements OnInit, OnDestroy {
 
   private map: mapboxgl.Map;
+  private socketStatus$: Subscription;
   private newMarkers$: Subscription;
   private deleteMarkers$: Subscription;
   private moveMarkers$: Subscription;
@@ -21,21 +23,26 @@ export class MapComponent implements OnInit, OnDestroy {
   private places: {[key: string]: IPlace} = {};
 
   constructor(private mapService: MapService,
-              private wsService: WebSocketService) { }
+              public wsService: WebSocketService) { }
 
   ngOnInit(): void {
     this.getMarkers();
-    this.listenSockets();
+    this.socketStatus$ = this.wsService.getSocketStatus().subscribe(status => {
+      if(status) {
+        this.listenSockets();
+      }
+    });
   }
 
   ngOnDestroy(): void {
+    this.socketStatus$.unsubscribe();
     this.newMarkers$.unsubscribe();
     this.deleteMarkers$.unsubscribe();
     this.moveMarkers$.unsubscribe();
   }
 
   createMap() {
-    (mapboxgl as any).accessToken = 'pk.eyJ1IjoidG9taW1lbG9uZSIsImEiOiJja2lxbzB6eHgwaWNmMnRwOTM0cXV0enhrIn0.uywsOpnR4YxEKqSS_TMKYA';
+    (mapboxgl as any).accessToken = environment.mapbox_token;
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -91,7 +98,7 @@ export class MapComponent implements OnInit, OnDestroy {
       id: new Date().toISOString(),
       lng: -75.75512993582937,
       lat: 45.349977429009954,
-      name: "unknow",
+      name: this.wsService.user.name,
       color: `#${Math.floor(Math.random()*16777215).toString(16)}`  
     }
     

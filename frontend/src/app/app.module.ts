@@ -11,13 +11,19 @@ import { SharedModule } from './shared/shared.module';
 import { PollComponent } from './pages/poll/poll.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MapComponent } from './pages/map/map.component';
+import { ChatComponent } from './pages/chat/chat.component';
+import { LoginComponent } from './pages/login/login.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChartComponent,
     PollComponent,
-    MapComponent
+    MapComponent,
+    ChatComponent,
+    LoginComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

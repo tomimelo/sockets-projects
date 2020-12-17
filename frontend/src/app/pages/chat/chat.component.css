@@ -1,0 +1,56 @@
+.chat-box {
+    height: 32em;
+}
+
+.chat-box .card-body {
+    background-color: #b8fdaa;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-bubble {
+    padding: 0.5em;
+    width: fit-content;
+    background-color: white;
+}
+
+.chat-username {
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.chat-msg {
+    font-size: 0.8em;
+}
+
+.msg-right {
+    background-color: #224224;
+    color: white;
+    align-self: flex-end;
+}
+
+.chat-users {
+    max-height: 32em;
+}
+
+.chat-users .card-body {
+    overflow-y: auto;
+}
+
+
+.chat-user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.3em;
+}
+
+.chat-user p {
+    margin-bottom: 0;
+    margin-left: 0.5em;
+}
+
+.dot-user {
+    font-size: 0.5em;
+    color: green;
+}

@@ -32,17 +32,23 @@ export class PollComponent implements OnInit, OnDestroy {
     responsive: true
   };
   private pollChanges$: Subscription;
+  private socketStatus$: Subscription;
 
   constructor(public pollService: PollService, 
-              private wsService: WebSocketService,
+              public wsService: WebSocketService,
               private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.getData();
-    this.listenPollChanges();
+    this.socketStatus$ = this.wsService.getSocketStatus().subscribe(status => {
+      if(status) {
+        this.listenPollChanges();
+      }
+    });
   }
 
   ngOnDestroy(): void {
+    this.socketStatus$.unsubscribe();
     this.pollChanges$.unsubscribe();
   }
 

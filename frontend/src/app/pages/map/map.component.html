@@ -2,3 +2,5 @@
     <button class="btn btn-secondary" (click)="createMarker()">Create marker</button>
     <div id="map"></div>
 </div>
+
+<app-loader *ngIf="wsService.isLogging"></app-loader>

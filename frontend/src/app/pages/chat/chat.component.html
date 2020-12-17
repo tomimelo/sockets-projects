@@ -1,0 +1,61 @@
+<div class="content">
+    <div class="jumbotron bg-success text-white">
+        <div class="container">
+            <h3 class="display-3">
+                Chat
+            </h3>
+            <p class="lead">
+                Chat with your friends in real time!
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <div class="card chat-box">
+                    <div class="card-header">
+                        <h5 class="card-title m-0 text-success">Messages</h5>
+                    </div>
+                    <div class="card-body">
+                        <li *ngFor="let msg of messages" class="chat-bubble shadow-sm mb-3 rounded" [class.msg-right]="msg.name === 'Tomas'">
+                            <div class="chat-username" [style.color]="msg.color">
+                                {{msg.name}} 
+                            </div>
+                            <div class="chat-msg">
+                                {{msg.message}}
+                            </div>
+                        </li>
+                    </div>
+                        <form class="card-footer">
+                            <div class="input-group">
+                                <input type="text"
+                                   class="form-control"
+                                   name="message"
+                                   placeholder="Type a message..."
+                                   aria-label="Type a message..."
+                                   aria-describedby="send-btn"
+                                   autofocus
+                                   autocomplete="off">
+                                <button class="btn btn-outline-primary" type="button" id="send-btn">Send</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card chat-users">
+                    <div class="card-header">
+                        <h5 class="card-title m-0 text-success text-center">Online Users</h5>
+                    </div>
+                    <div class="card-body">
+                        <li class="chat-user">
+                            <i class="fas fa-circle dot-user"></i><p>Tomás</p>
+                        </li>
+                        <li class="chat-user">
+                            <i class="fas fa-circle dot-user"></i><p>Fernando</p>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

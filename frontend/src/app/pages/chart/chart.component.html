@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" *ngIf="!wsService.isLogging else loader">
     <div class="jumbotron bg-info text-white">
         <div class="container">
             <h3 class="display-3">
@@ -44,3 +44,7 @@
         </div>
     </div>
 </div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

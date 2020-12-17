@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
+import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,15 +11,14 @@ import { PollService } from 'src/app/services/poll.service';
 export class NavbarComponent implements OnInit {
 
   constructor(private router: Router,
-              private pollService: PollService) { }
+              private pollService: PollService,
+              private wsService: WebSocketService) { }
 
   ngOnInit(): void {
   }
 
   logout(){
-    localStorage.removeItem("poll-vote");
-    this.pollService.vote = null;
-    this.router.navigateByUrl("/");
+    this.wsService.logout();
   }
 
 }

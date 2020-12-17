@@ -2,7 +2,7 @@ import { Socket } from "socket.io";
 import socketIO from "socket.io";
 import { Map } from "../classes/map";
 import { MapMarker } from "../classes/map-marker";
-
+import { UsersList } from "../classes/users-list";
 
 export const map = new Map();
 export const mapSockets = (client: Socket, io: socketIO.Server) => {
@@ -19,4 +19,21 @@ export const mapSockets = (client: Socket, io: socketIO.Server) => {
         client.broadcast.emit("move-marker", marker);
     });
 
+}
+
+export const connectedUsers = new UsersList();
+export const userSockets = (client: Socket, io: socketIO.Server) => {
+    client.on("disconnect", () => {
+        console.log("Client disconnected");
+        connectedUsers.deleteUser(client.id);
+        io.emit("active-users", connectedUsers.getList());
+    });
+    client.on("new-user", (user, callback: Function) => {
+        const newUser = connectedUsers.addUser(user, client.id);
+        io.emit("active-user", connectedUsers.getList());
+        callback(newUser);
+    });
+    client.on("active-users", () => {
+        io.to(client.id).emit("active-users",  connectedUsers.getList());
+    });
 }

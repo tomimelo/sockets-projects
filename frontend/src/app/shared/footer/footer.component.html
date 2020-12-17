@@ -1,7 +1,7 @@
 <div class="footer-margin">
     <footer class="footer py-2 px-3 bg-dark text-white text-end">
-        Server status:
-        <span *ngIf="wsService.socketStatus" class="badge bg-success">Online</span>
-        <span *ngIf="!wsService.socketStatus" class="badge bg-danger">Offline</span>
+        Connection status:
+        <span *ngIf="wsService.socketStatus.value" class="badge bg-success">Online</span>
+        <span *ngIf="!wsService.socketStatus.value" class="badge bg-danger">Offline</span>
     </footer>
 </div>
