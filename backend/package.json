@@ -1,13 +1,13 @@
 {
-  "name": "backend",
+  "name": "sockets-demo-sv",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend for Sockets Server Demo",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tomas Melone",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
