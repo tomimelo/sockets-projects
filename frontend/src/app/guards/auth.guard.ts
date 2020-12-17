@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { WebSocketService } from '../services/web-socket.service';
 
 @Injectable({
@@ -12,7 +11,7 @@ export class AuthGuard implements CanActivateChild {
 
   canActivateChild(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot): boolean | UrlTree {
       if(this.wsService.getUser()) {
         return true;
       } else if (this.wsService.isLogging) {

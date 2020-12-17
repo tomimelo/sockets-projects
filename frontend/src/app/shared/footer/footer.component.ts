@@ -8,6 +8,8 @@ import { WebSocketService } from 'src/app/services/web-socket.service';
 })
 export class FooterComponent {
 
+  public date = new Date().getFullYear();
+
   constructor(public wsService: WebSocketService) { }
 
 }

@@ -16,8 +16,8 @@
                     <div class="card-header">
                         <h5 class="card-title m-0 text-success">Messages</h5>
                     </div>
-                    <div class="card-body">
-                        <li *ngFor="let msg of messages" class="chat-bubble shadow-sm mb-3 rounded" [class.msg-right]="msg.name === 'Tomas'">
+                    <div id="chat-messages" class="card-body">
+                        <li *ngFor="let msg of messages" class="chat-bubble shadow-sm mb-3 rounded" [class.msg-right]="msg.user_id === wsService.user.id">
                             <div class="chat-username" [style.color]="msg.color">
                                 {{msg.name}} 
                             </div>
@@ -26,17 +26,18 @@
                             </div>
                         </li>
                     </div>
-                        <form class="card-footer">
+                        <form class="card-footer" [formGroup]="messageBox" (ngSubmit)="sendMessage()">
                             <div class="input-group">
                                 <input type="text"
                                    class="form-control"
-                                   name="message"
+                                   name="msg"
                                    placeholder="Type a message..."
                                    aria-label="Type a message..."
                                    aria-describedby="send-btn"
+                                   formControlName="msg"
                                    autofocus
                                    autocomplete="off">
-                                <button class="btn btn-outline-primary" type="button" id="send-btn">Send</button>
+                                <button class="btn btn-outline-primary" type="submit" id="send-btn">Send</button>
                             </div>
                         </form>
                 </div>
@@ -47,14 +48,14 @@
                         <h5 class="card-title m-0 text-success text-center">Online Users</h5>
                     </div>
                     <div class="card-body">
-                        <li class="chat-user">
-                            <i class="fas fa-circle dot-user"></i><p>Tomás</p>
-                        </li>
-                        <li class="chat-user">
-                            <i class="fas fa-circle dot-user"></i><p>Fernando</p>
+                        <li class="chat-user" *ngFor="let user of activeUsers">
+                            <i class="fas fa-circle dot-user" [style.color]="user.color"></i><p>{{user.name}}</p><span *ngIf="user.id === wsService.user?.id">&nbsp;(you)</span>
                         </li>
                     </div>
                 </div>
+                <audio controls src='../../../assets/audio/new-msg.mp3' type="audio/mp3" class="d-none">
+                    Your browser does not support the <code>audio</code> element.
+                </audio>
             </div>
         </div>
     </div>

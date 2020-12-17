@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
     name: new FormControl("", Validators.required)
   });
 
+  public isLoading: boolean = false;
+
   constructor(private fb: FormBuilder,
               private wsService: WebSocketService,
               private router: Router) { }
@@ -23,12 +25,16 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    if(this.form.invalid || this.wsService.socketStatus.value) {
+    if(this.form.invalid || this.wsService.socketStatus.value || this.wsService.isLogging) {
       return;
     }
 
+    this.isLoading = true;
     this.wsService.login(this.form.value).subscribe(resp => {
       this.router.navigateByUrl("/");
+      this.isLoading = false;
+    }, (err) => {
+      this.isLoading = false;
     });
   }
 

@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private router: Router,
               private pollService: PollService,
-              private wsService: WebSocketService) { }
+              public wsService: WebSocketService) { }
 
   ngOnInit(): void {
   }

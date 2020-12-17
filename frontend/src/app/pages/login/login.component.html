@@ -9,7 +9,10 @@
                        name="name"
                        formControlName="name">
                 <div class="d-grid">
-                    <button class="mt-3 btn btn-primary" type="submit">Submit</button>
+                    <button *ngIf="!isLoading else loading" class="mt-3 btn btn-primary" type="submit">Submit</button>
+                    <ng-template #loading>
+                        <button class="mt-3 btn btn-primary disabled" type="button"><i class="fas fa-spin fa-circle-notch"></i> Loading...</button>
+                    </ng-template>
                 </div>
             </form>
         </div>

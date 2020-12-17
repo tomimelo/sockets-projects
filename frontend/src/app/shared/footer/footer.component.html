@@ -1,7 +1,12 @@
 <div class="footer-margin">
-    <footer class="footer py-2 px-3 bg-dark text-white text-end">
-        Connection status:
-        <span *ngIf="wsService.socketStatus.value" class="badge bg-success">Online</span>
-        <span *ngIf="!wsService.socketStatus.value" class="badge bg-danger">Offline</span>
+    <footer class="footer py-2 px-3 bg-dark text-white">
+        <div class="author">
+            &copy; {{date}} | <a href="https://github.com/tomimelo/" target="_blank">Tomás Melone</a>
+        </div>
+        <div class="connection-status">
+            Connection status:
+            <span *ngIf="wsService.socketStatus.value" class="badge bg-success">Online</span>
+            <span *ngIf="!wsService.socketStatus.value" class="badge bg-danger">Offline</span>
+        </div>
     </footer>
 </div>

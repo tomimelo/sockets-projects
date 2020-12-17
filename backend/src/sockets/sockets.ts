@@ -24,16 +24,18 @@ export const mapSockets = (client: Socket, io: socketIO.Server) => {
 export const connectedUsers = new UsersList();
 export const userSockets = (client: Socket, io: socketIO.Server) => {
     client.on("disconnect", () => {
-        console.log("Client disconnected");
         connectedUsers.deleteUser(client.id);
         io.emit("active-users", connectedUsers.getList());
     });
     client.on("new-user", (user, callback: Function) => {
         const newUser = connectedUsers.addUser(user, client.id);
-        io.emit("active-user", connectedUsers.getList());
+        io.emit("active-users", connectedUsers.getList());
         callback(newUser);
     });
     client.on("active-users", () => {
         io.to(client.id).emit("active-users",  connectedUsers.getList());
+    });
+    client.on("new-message", (payload, callback) => {
+        io.emit("new-message", payload);
     });
 }

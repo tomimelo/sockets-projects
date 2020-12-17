@@ -7,6 +7,8 @@ import { MapService } from 'src/app/services/map.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import { environment } from 'src/environments/environment';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -57,14 +59,16 @@ export class MapComponent implements OnInit, OnDestroy {
 
   addMarker(marker: IPlace) {
 
-    const h3 = document.createElement("h3");
-    h3.innerText = marker.name;
+    const h4 = document.createElement("h4");
+    h4.innerText = marker.name;
 
     const deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "Delete";
+    deleteBtn.className = "btn btn-sm btn-danger"
+    deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
 
     const div = document.createElement("div");
-    div.append(h3, deleteBtn);
+    div.className = "map-marker"
+    div.append(h4, deleteBtn);
     
     const customPopup = new mapboxgl.Popup({
       offset: 25,
@@ -72,7 +76,7 @@ export class MapComponent implements OnInit, OnDestroy {
     }).setDOMContent(div);
 
     const newMarker = new mapboxgl.Marker({
-      draggable: true,
+      draggable: this.wsService.user?.id === marker.user_id,
       color: marker.color
     })
     .setLngLat([marker.lng, marker.lat])
@@ -85,8 +89,16 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     deleteBtn.addEventListener('click', () => {
-      newMarker.remove();
-      this.wsService.emit("delete-marker", marker.id);
+      if(this.wsService.user.id === marker.user_id) {
+        newMarker.remove();
+        this.wsService.emit("delete-marker", marker.id);
+      } else {
+        Swal.fire(
+          'Oops!',
+          "You don't have permission to do that.",
+          'info'
+        );
+      }
     });
 
     this.mapboxMarkers[marker.id] = newMarker;
@@ -99,7 +111,8 @@ export class MapComponent implements OnInit, OnDestroy {
       lng: -75.75512993582937,
       lat: 45.349977429009954,
       name: this.wsService.user.name,
-      color: `#${Math.floor(Math.random()*16777215).toString(16)}`  
+      color: this.wsService.user.color,
+      user_id: this.wsService.user.id  
     }
     
     this.addMarker(marker);

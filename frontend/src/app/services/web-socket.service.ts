@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import * as io from 'socket.io-client';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { delay, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
 import { IUser } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
+
+import Swal from 'sweetalert2';
+import { PollService } from './poll.service';
 
 const base_url = environment.base_url
 
@@ -23,7 +26,8 @@ export class WebSocketService {
   public isLogging: boolean = false;
 
   constructor(private http: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private pollService: PollService) {
     this.loadStorage();
   }
 
@@ -34,13 +38,13 @@ export class WebSocketService {
       this.isLogging = false;
       this.emit("new-user", this.tempUser, (user) => {
         this.user = user;
-        this.tempUser = null;
         this.saveStorage();
       });
     });
 
     this.socket.on('disconnect', () => {
       this.changeSocketStatus(false);
+      this.logout();
     });
 
   }
@@ -73,13 +77,21 @@ export class WebSocketService {
     this.isLogging = true;
     return this.http.post(`${base_url}/login`, name)
             .pipe(
-              delay(2000),
               tap((resp: any) => {
                 this.tempUser = resp.user;
                 this.socket = io.connect(base_url);
                 this.checkStatus();
               }),
-              map((resp: any) => resp.user)
+              map((resp: any) => resp.user),
+              catchError((err: HttpErrorResponse) => {
+                Swal.fire(
+                  'Error',
+                  'An error has occurred, please try again later',
+                  'error'
+                );
+                this.isLogging = false;
+                return throwError(err);
+              })
             );
   }
 
@@ -96,6 +108,8 @@ export class WebSocketService {
 
   logout(){
     localStorage.removeItem("user");
+    localStorage.removeItem("poll-vote");
+    this.pollService.vote = null;
     this.user = null;
     this.tempUser = null;
     this.socket.disconnect()

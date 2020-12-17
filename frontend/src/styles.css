@@ -17,6 +17,13 @@ body {
     flex-direction: column;
 }
 
+.map-marker {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .navbar {
     z-index: 10;
 }
@@ -40,6 +47,8 @@ body {
 }
 
 footer {
+    display: flex;
+    align-items: center;
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -47,6 +56,19 @@ footer {
 
 .footer-margin {
     height: 80px;
+}
+
+footer .author a {
+    color: white;
+    text-decoration: none;
+}
+
+footer .author a:hover {
+    text-decoration: underline;
+}
+
+footer .connection-status, footer .author {
+    margin-left: auto;
 }
 
 /************

@@ -3,7 +3,7 @@ import { ChartData } from '../classes/chart';
 import { PollData } from '../classes/poll';
 import Server from '../classes/server';
 import { User } from '../classes/user';
-import { map } from '../sockets/sockets';
+import { connectedUsers, map } from '../sockets/sockets';
 
 const router = Router();
 
@@ -21,6 +21,13 @@ router.post("/login", (req: Request, res: Response) => {
     res.json({
         ok: true,
         user: newUser
+    });
+});
+
+router.get("/users", (req: Request, res: Response) => {
+    res.json({
+        ok: true,
+        users: connectedUsers.getList()
     });
 });
 
