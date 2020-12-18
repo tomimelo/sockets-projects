@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  base_url: "http://192.168.1.130:5000",
+  server: "http://localhost:5000",
+  server_api: "http://localhost:5000/api",
   mapbox_token: 'pk.eyJ1IjoidG9taW1lbG9uZSIsImEiOiJja2lxbzB6eHgwaWNmMnRwOTM0cXV0enhrIn0.uywsOpnR4YxEKqSS_TMKYA'
 };
 

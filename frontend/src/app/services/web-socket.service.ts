@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 import * as io from 'socket.io-client';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
@@ -10,8 +9,10 @@ import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
 import { PollService } from './poll.service';
+import { environment } from 'src/environments/environment';
 
-const base_url = environment.base_url
+const server = environment.server;
+const server_api = environment.server_api;
 
 @Injectable({
   providedIn: 'root'
@@ -75,11 +76,11 @@ export class WebSocketService {
 
   login(name) {
     this.isLogging = true;
-    return this.http.post(`${base_url}/login`, name)
+    return this.http.post(`${server_api}/login`, name)
             .pipe(
               tap((resp: any) => {
                 this.tempUser = resp.user;
-                this.socket = io.connect(base_url);
+                this.socket = io.connect(server);
                 this.checkStatus();
               }),
               map((resp: any) => resp.user),

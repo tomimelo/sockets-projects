@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { WebSocketService } from './web-socket.service';
 
-const base_url = environment.base_url;
+const server_api = environment.server_api;
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ChatService {
               private wsService: WebSocketService) { }
 
   getUsers() {
-    return this.http.get(`${base_url}/users`)
+    return this.http.get(`${server_api}/users`)
             .pipe(
               map((resp: any) => resp.users)
             );

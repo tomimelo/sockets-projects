@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
-const base_url = environment.base_url;
+const server_api = environment.server_api;
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +17,14 @@ export class PollService {
   }
 
   getData() {
-    return this.http.get(`${base_url}/poll`)
+    return this.http.get(`${server_api}/poll`)
       .pipe(
         map((resp: any) => resp.data)
       );
   }
 
   changeValue(option) {
-    return this.http.post(`${base_url}/poll`, option)
+    return this.http.post(`${server_api}/poll`, option)
       .pipe(
         map((resp: any) => resp.data)
       );

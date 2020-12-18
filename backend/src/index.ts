@@ -10,7 +10,7 @@ server.app.use(json());
 
 server.app.use( (req, res, next) => { next(); }, cors({origin: true, credentials: true}) );
 
-server.app.use('/', router);
+server.app.use('/api', router);
 
 server.start( () => {
     console.log(`Server running on port ${SERVER_PORT}`);
