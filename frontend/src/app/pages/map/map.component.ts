@@ -48,7 +48,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-75.75512993582937, 45.349977429009954],
+      center: [-58.51225218716453, -34.59934548397284],
       zoom: 16
     });
 
@@ -108,8 +108,8 @@ export class MapComponent implements OnInit, OnDestroy {
   createMarker() {
     const marker: IPlace = {
       id: new Date().toISOString(),
-      lng: -75.75512993582937,
-      lat: 45.349977429009954,
+      lng: -58.51225218716453,
+      lat: -34.59934548397284,
       name: this.wsService.user.name,
       color: this.wsService.user.color,
       user_id: this.wsService.user.id  
