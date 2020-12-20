@@ -11,7 +11,7 @@
   <h2 align="center">Sockets Demo</h2>
 
   <p align="center">
-    A few projects examples of things you can do with sockets. Made in Angular, Node and Express. I came up with this idea after taking a course of Udemy by [Fernando Herrera](https://github.com/Klerith) to show everything learned.
+    A few projects examples of things you can do with sockets. Made in Angular, Node and Express. I came up with this idea after taking a course of Udemy by <a href="https://github.com/Klerith">Fernando Herrera</a> to show everything learned.
     <br />
     <a href="https://github.com/tomimelo/sockets-projects"><strong>Explore the docs »</strong></a>
     <br />
