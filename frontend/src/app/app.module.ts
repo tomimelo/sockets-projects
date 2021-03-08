@@ -14,6 +14,7 @@ import { MapComponent } from './pages/map/map.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { GMapComponent } from './pages/g-map/g-map.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     MapComponent,
     ChatComponent,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+    GMapComponent
   ],
   imports: [
     BrowserModule,

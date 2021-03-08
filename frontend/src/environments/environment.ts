@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   server: "http://localhost:5000",
   server_api: "http://localhost:5000/api",
-  mapbox_token: 'pk.eyJ1IjoidG9taW1lbG9uZSIsImEiOiJja2lxbzB6eHgwaWNmMnRwOTM0cXV0enhrIn0.uywsOpnR4YxEKqSS_TMKYA'
+  mapbox_token: 'pk.eyJ1IjoidG9taW1lbG9uZSIsImEiOiJja2lxbzB6eHgwaWNmMnRwOTM0cXV0enhrIn0.uywsOpnR4YxEKqSS_TMKYA',
+  gmap_apiKey: 'AIzaSyBlDParqn5F4V6CxSVkKs76nbSNvCJi3ZQ'
 };
 
 /*
